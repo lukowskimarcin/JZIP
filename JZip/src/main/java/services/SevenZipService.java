@@ -22,14 +22,16 @@ public class SevenZipService {
 	        
 	        Path pathToFile = Paths.get(path);
 	        Files.createDirectories(pathToFile.getParent());
-	        Files.createFile(pathToFile);
 	        
+	        if (Files.notExists(pathToFile)) {
+	        	Files.createFile(pathToFile);
+		        FileOutputStream fos = new FileOutputStream(new File(path));
+		        byte[] content = new byte[(int) entry.getSize()];
+		        sevenZFile.read(content, 0, content.length);
+		        fos.write(content);
+		        fos.close();
+	        }
 	        
-	        FileOutputStream fos = new FileOutputStream(new File(path));
-	        byte[] content = new byte[(int) entry.getSize()];
-	        sevenZFile.read(content, 0, content.length);
-	        fos.write(content);
-	        fos.close();
 	        entry = sevenZFile.getNextEntry();
 	    }
 	    sevenZFile.close();

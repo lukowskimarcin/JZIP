@@ -103,6 +103,8 @@ public class MenuControler extends BaseControler {
 				service.decompres(file, out);
 			} catch (Exception ex) {
 				
+				ex.printStackTrace();
+				
 				Alert alert = new  Alert(AlertType.ERROR);
 				alert.setHeaderText(null);
 				alert.setTitle("Error");
