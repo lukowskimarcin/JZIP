@@ -60,6 +60,12 @@ public class MenuControler extends BaseControler {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.setResizable(false);
 		
+		
+		
+		
+		stage.getIcons().add(appControler.getStage().getIcons().get(0));
+		
+		
 		JFXView<AboutControler> about =  appControler.load(AboutControler.class);
 		about.getControler().setDialogStage(stage);
 		
