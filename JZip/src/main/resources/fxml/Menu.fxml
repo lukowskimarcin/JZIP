@@ -3,14 +3,24 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
 
-<MenuBar xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlers.MenuControler">
+<MenuBar xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlers.MenuControler">
   <menus>
     <Menu mnemonicParsing="false" text="Plik">
       <items>
-            <MenuItem fx:id="mCompress" mnemonicParsing="false" onAction="#onCompress" text="Kompresuj" />
-            <MenuItem fx:id="mDecompress" mnemonicParsing="false" onAction="#onDecompress" text="Rozpakuj" />
-        <MenuItem fx:id="mClose" mnemonicParsing="false" onAction="#closeAction" text="Zamknij" />
+            <MenuItem fx:id="mCompress" mnemonicParsing="false" onAction="#onCompress" text="Kompresuj">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+            <MenuItem fx:id="mDecompress" mnemonicParsing="false" onAction="#onDecompress" text="Rozpakuj">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+        <MenuItem fx:id="mClose" mnemonicParsing="false" onAction="#closeAction" text="Zamknij">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="O programie">
