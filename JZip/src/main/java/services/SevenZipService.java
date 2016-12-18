@@ -12,7 +12,6 @@ import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 
 import events.SevenZipEvent;
 import interfaces.IEventHandler;
-import javafx.event.EventHandler;
 
 public class SevenZipService {
 	
@@ -48,14 +47,6 @@ public class SevenZipService {
 	        entry = sevenZFile.getNextEntry();
 	        actual++;
 	        handler.handle(new SevenZipEvent(path, actual / totalFiles));
-	        
-	        
-	        try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 	        
 	    }
 	    sevenZFile.close();
