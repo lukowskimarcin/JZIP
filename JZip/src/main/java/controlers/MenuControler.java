@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.fxbase.views.BaseControler;
@@ -32,9 +33,6 @@ public class MenuControler extends BaseControler {
 		super("src/main/resources/fxml/Menu.fxml");
 	}
 	
-	@Inject
-	SevenZipService service;
-
 	@FXML
 	private MenuItem mCompress;
 
@@ -47,6 +45,7 @@ public class MenuControler extends BaseControler {
 	@FXML
 	private MenuItem mAbout;
 
+	
 	@FXML
 	void closeAction(ActionEvent event) {
 		Platform.exit();
@@ -59,12 +58,7 @@ public class MenuControler extends BaseControler {
 		stage.initOwner(appControler.getStage());
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.setResizable(false);
-		
-		
-		
-		
 		stage.getIcons().add(appControler.getStage().getIcons().get(0));
-		
 		
 		JFXView<AboutControler> about =  appControler.load(AboutControler.class);
 		about.getControler().setDialogStage(stage);
@@ -83,48 +77,13 @@ public class MenuControler extends BaseControler {
 
 	}
 
-	String lastPath = null;
 	
 	@FXML
 	void onDecompress(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Otwórz archiwum");
-		if (lastPath != null) {
-			fileChooser.setInitialDirectory(new File(lastPath));
-		}
-		ExtensionFilter filter = new ExtensionFilter("Archiwa", "*.7z");
-		fileChooser.getExtensionFilters().add(filter);
-		fileChooser.setSelectedExtensionFilter(filter);
+		JFXView<DecompressControler> view = appControler.load(DecompressControler.class);
+		appControler.setCenterNode(view);
 		
-		File file = fileChooser.showOpenDialog(appControler.getStage());
-		
-		if(file != null) {
-			try {
-				lastPath = file.getParent();
-				
-				DirectoryChooser  saveFileChooser = new DirectoryChooser();
-				saveFileChooser.setTitle("Rozpakuj w ...");
-				File out = saveFileChooser.showDialog(appControler.getStage());
-				
-				service.decompres(file, out);
-			} catch (Exception ex) {
-				
-				ex.printStackTrace();
-				
-				Alert alert = new  Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText(ex.getMessage());
-				alert.showAndWait();
-			}
-			
-		} else {
-			Alert alert = new  Alert(AlertType.WARNING);
-			alert.setHeaderText(null);
-			alert.setTitle("Brak pliku");
-			alert.setContentText("Nie wybrano pliku!!!");
-			alert.showAndWait();
-		}
+		view.getControler().decompress();
 	}
 
 }
