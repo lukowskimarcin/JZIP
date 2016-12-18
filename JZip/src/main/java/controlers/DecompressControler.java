@@ -1,5 +1,6 @@
 package controlers;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
@@ -36,16 +38,15 @@ public class DecompressControler extends BaseControler {
 	public DecompressControler() {
 		super("src/main/resources/fxml/Decompres.fxml");
 	}
-	
-	@FXML
-    private ListView<String> list;
-	
-	 @FXML
-	 private ProgressBar progress;
 
-	 
-	 
-	  
+	@FXML
+	private ListView<String> list;
+
+	@FXML
+	private ProgressBar progress;
+
+	@FXML
+	private MenuItem mOpen;
 
 	@FXML
 	private Button bClear;
@@ -54,23 +55,22 @@ public class DecompressControler extends BaseControler {
 	void onClear(ActionEvent event) {
 		list.getItems().clear();
 		progress.setVisible(false);
-		
+
 	}
-	
 
 	public void decompress() {
 		ObservableList<String> files = FXCollections.observableArrayList();
 		list.setItems(files);
-		
-	   service.addListener( e -> {
-		   System.out.println(e.getFileName() + "[" + String.format("[%.2f sec] !!!", e.getProgress()*100) + " %]");
-		   Platform.runLater(() -> {
-			   progress.setVisible(true);
-			   files.add(e.getFileName());
-			   progress.setProgress(e.getProgress());
-		   });
+
+		service.addListener(e -> {
+			System.out.println(e.getFileName() + "[" + String.format("[%.2f sec] !!!", e.getProgress() * 100) + " %]");
+			Platform.runLater(() -> {
+				progress.setVisible(true);
+				files.add(e.getFileName());
+				progress.setProgress(e.getProgress());
+			});
 		});
-		
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Otwórz archiwum");
 		if (lastPath != null) {
@@ -79,17 +79,17 @@ public class DecompressControler extends BaseControler {
 		ExtensionFilter filter = new ExtensionFilter("Archiwa", "*.7z");
 		fileChooser.getExtensionFilters().add(filter);
 		fileChooser.setSelectedExtensionFilter(filter);
-		
+
 		File file = fileChooser.showOpenDialog(appControler.getStage());
-		
-		if(file != null) {
+
+		if (file != null) {
 			try {
 				lastPath = file.getParent();
-				
-				DirectoryChooser  saveFileChooser = new DirectoryChooser();
+
+				DirectoryChooser saveFileChooser = new DirectoryChooser();
 				saveFileChooser.setTitle("Rozpakuj w ...");
 				File out = saveFileChooser.showDialog(appControler.getStage());
-			
+
 				Task<Void> task = new Task<Void>() {
 					@Override
 					protected Void call() throws Exception {
@@ -98,26 +98,41 @@ public class DecompressControler extends BaseControler {
 					}
 				};
 				new Thread(task).start();
-						
+
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				
-				Alert alert = new  Alert(AlertType.ERROR);
+
+				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText(null);
 				alert.setTitle("Error");
 				alert.setContentText(ex.getMessage());
 				alert.showAndWait();
 
-			}	
+			}
 
-			
 		} else {
-			Alert alert = new  Alert(AlertType.WARNING);
+			Alert alert = new Alert(AlertType.WARNING);
 			alert.setHeaderText(null);
 			alert.setTitle("Brak pliku");
 			alert.setContentText("Nie wybrano pliku!!!");
 			alert.showAndWait();
 		}
+	}
+
+	@FXML
+	void onOpen(ActionEvent event) {
+		String path = list.getSelectionModel().getSelectedItem();
+		try {
+			Desktop.getDesktop().open(new  File(path));
+		} catch (IOException ex) {
+			ex.printStackTrace();
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
+		} 
 	}
 
 }

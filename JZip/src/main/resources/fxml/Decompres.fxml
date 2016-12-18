@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="300.0" prefHeight="300.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlers.DecompressControler">
+<AnchorPane minHeight="300.0" prefHeight="300.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlers.DecompressControler">
    <children>
-      <ListView fx:id="list" prefHeight="252.0" prefWidth="200.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ListView fx:id="list" prefHeight="252.0" prefWidth="200.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="mOpen" mnemonicParsing="false" onAction="#onOpen" text="Otwórz ...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              </items>
+            </ContextMenu>
+         </contextMenu></ListView>
       <Button fx:id="bClear" layoutX="291.0" layoutY="262.0" mnemonicParsing="false" onAction="#onClear" text="Wyczysc" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="21.0" />
       <ProgressBar fx:id="progress" layoutX="7.0" layoutY="265.0" prefHeight="18.0" prefWidth="270.0" progress="0.0" visible="false" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="96.0" />
    </children>
