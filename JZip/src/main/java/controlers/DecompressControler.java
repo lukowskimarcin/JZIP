@@ -2,11 +2,9 @@ package controlers;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.fxbase.utils.DialogsUtil;
 import org.fxbase.views.BaseControler;
 
 import javafx.application.Platform;
@@ -15,14 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -100,22 +94,16 @@ public class DecompressControler extends BaseControler {
 				new Thread(task).start();
 
 			} catch (Exception ex) {
-				ex.printStackTrace();
-
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText(ex.getMessage());
-				alert.showAndWait();
-
+				DialogsUtil.create()
+					.title("Brak pliku")
+					.showException(ex);
 			}
 
 		} else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setHeaderText(null);
-			alert.setTitle("Brak pliku");
-			alert.setContentText("Nie wybrano pliku!!!");
-			alert.showAndWait();
+			DialogsUtil.create()
+				.title("Brak pliku")
+				.message("Nie wybrano pliku!!!")
+				.showWarning();
 		}
 	}
 
@@ -123,15 +111,11 @@ public class DecompressControler extends BaseControler {
 	void onOpen(ActionEvent event) {
 		String path = list.getSelectionModel().getSelectedItem();
 		try {
-			Desktop.getDesktop().open(new  File(path));
-		} catch (IOException ex) {
-			ex.printStackTrace();
-
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error");
-			alert.setContentText(ex.getMessage());
-			alert.showAndWait();
+			File file = new File(path);
+			
+			Desktop.getDesktop().open(file);
+		} catch (Exception ex) {
+			DialogsUtil.create().showException(ex);
 		} 
 	}
 

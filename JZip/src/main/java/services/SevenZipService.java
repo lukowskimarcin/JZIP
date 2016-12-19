@@ -17,6 +17,7 @@ public class SevenZipService {
 	
 	private IEventHandler<SevenZipEvent> handler;
 	
+	@SuppressWarnings("unused")
 	public void decompres(File file, File out) throws IOException {
 		SevenZFile sevenZFile = new SevenZFile(file);
 	    SevenZArchiveEntry entry = sevenZFile.getNextEntry();
