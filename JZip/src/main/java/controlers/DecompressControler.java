@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.File;
 import javax.inject.Inject;
 
+import org.controlsfx.control.Notifications;
 import org.fxbase.utils.DialogsUtil;
 import org.fxbase.views.BaseControler;
 
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -88,6 +90,13 @@ public class DecompressControler extends BaseControler {
 					@Override
 					protected Void call() throws Exception {
 						service.decompres(file, out);
+						
+						Platform.runLater(() -> {
+							Notifications.create().darkStyle().position(Pos.BOTTOM_RIGHT)
+							.title("Rozpakowywanie...")
+							.text("Ukończone")
+							.showInformation();	
+						});
 						return null;
 					}
 				};
