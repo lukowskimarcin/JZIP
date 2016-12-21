@@ -52,6 +52,7 @@ public class MenuControler extends BaseControler {
 	}
 
 	@FXML
+	@SuppressWarnings("unchecked")
 	void onAbout(ActionEvent event) throws FileNotFoundException {
 		Stage stage = new Stage();
 		stage.setTitle("O programie");
@@ -69,12 +70,11 @@ public class MenuControler extends BaseControler {
 		stage.setScene(scene);
 		stage.showAndWait();
 	}
-		
-		
 
 	@FXML
 	void onCompress(ActionEvent event) {
-
+		JFXView<CompressControler> view = appControler.load(CompressControler.class);
+		appControler.setCenterNode(view);
 	}
 
 	

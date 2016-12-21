@@ -1,17 +1,23 @@
 package services; 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
+import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
 
 import events.SevenZipEvent;
 import interfaces.IEventHandler;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 public class SevenZipService {
 	
@@ -47,14 +53,37 @@ public class SevenZipService {
 	        
 	        entry = sevenZFile.getNextEntry();
 	        actual++;
-	        handler.handle(new SevenZipEvent(path, actual / totalFiles));
+	        if(handler!=null) {
+	        	handler.handle(new SevenZipEvent(path, actual / totalFiles));
+	        }
 	        
 	    }
 	    sevenZFile.close();
 	}
 	
-	public void compress(File file) {
+	public void compress(File archive, ObservableList<String> files) throws Exception {
+		SevenZOutputFile sevenZOutput = new SevenZOutputFile(archive);
 		
+		double totalFiles = files.size();
+		double actual = 0;
+		
+		for(String f : files) {
+			File file = new File(f);
+			
+			SevenZArchiveEntry entry = sevenZOutput.createArchiveEntry(file, file.getName());
+			sevenZOutput.putArchiveEntry(entry);
+			
+			byte[] stream = Files.readAllBytes(file.toPath());
+			sevenZOutput.write(stream);
+			
+			sevenZOutput.closeArchiveEntry();
+			actual++;
+			if(handler!=null) {
+				handler.handle(new SevenZipEvent(f, actual / totalFiles));	
+			}
+			
+		}
+		sevenZOutput.close();
 	}
 
 	public void addListener(IEventHandler<SevenZipEvent> listener){
