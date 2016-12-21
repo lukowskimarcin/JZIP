@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.controlsfx.control.Notifications;
@@ -121,7 +120,5 @@ public class CompressControler extends BaseControler implements Initializable {
 			DialogsUtil.create().showException(ex);
 		}
 	}
-
-	
 
 }
