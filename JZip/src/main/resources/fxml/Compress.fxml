@@ -7,15 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="325.0" prefWidth="428.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="controlers.CompressControler">
+<AnchorPane prefHeight="325.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlers.CompressControler">
    <children>
-      <ListView fx:id="fileList" layoutX="9.0" layoutY="89.0" prefHeight="204.0" prefWidth="312.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="89.0" />
+      <ListView fx:id="fileList" layoutX="9.0" layoutY="89.0" prefHeight="204.0" prefWidth="334.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="89.0" />
       <Label layoutX="9.0" layoutY="14.0" prefHeight="17.0" prefWidth="63.0" text="Archiwum:" />
-      <TextField fx:id="archive" layoutX="9.0" layoutY="31.0" prefHeight="25.0" prefWidth="312.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="31.0" />
-      <Button fx:id="bCreate" layoutX="334.0" layoutY="31.0" mnemonicParsing="false" onAction="#onCreateArchive" prefHeight="25.0" prefWidth="80.0" text="Zapisz ..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="31.0" />
-      <Button fx:id="bAdd" layoutX="334.0" layoutY="89.0" mnemonicParsing="false" onAction="#onAddFiles" prefHeight="25.0" prefWidth="80.0" text="Dodaj pliki..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="89.0" />
-      <ProgressBar fx:id="progress" layoutX="9.0" layoutY="302.0" prefHeight="18.0" prefWidth="312.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="107.0" />
+      <TextField fx:id="archive" layoutX="9.0" layoutY="31.0" prefHeight="25.0" prefWidth="334.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="31.0" />
+      <Button fx:id="bCreate" layoutX="334.0" layoutY="31.0" mnemonicParsing="false" onAction="#onCreateArchive" prefHeight="25.0" prefWidth="103.0" text="Zapisz ..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="31.0" />
+      <Button fx:id="bAddFiles" layoutX="334.0" layoutY="89.0" mnemonicParsing="false" onAction="#onAddFiles" prefHeight="25.0" prefWidth="103.0" text="Dodaj pliki..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="89.0" />
+      <ProgressBar fx:id="progress" layoutX="9.0" layoutY="302.0" prefHeight="18.0" prefWidth="444.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="14.0" />
       <Label layoutX="10.0" layoutY="72.0" prefHeight="17.0" prefWidth="63.0" text="Pliki:" />
+      <Button fx:id="bAddCatalog" layoutX="350.0" layoutY="130.0" mnemonicParsing="false" onAction="#onAddCatalog" prefHeight="25.0" prefWidth="103.0" text="Dodaj katalog..." AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="130.0" />
+      <Button fx:id="bClear" layoutX="350.0" layoutY="166.0" mnemonicParsing="false" onAction="#onClear" prefHeight="25.0" prefWidth="103.0" text="Wyczyść" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="166.0" />
    </children>
 </AnchorPane>

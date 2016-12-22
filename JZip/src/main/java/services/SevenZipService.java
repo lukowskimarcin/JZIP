@@ -73,8 +73,10 @@ public class SevenZipService {
 			SevenZArchiveEntry entry = sevenZOutput.createArchiveEntry(file, file.getName());
 			sevenZOutput.putArchiveEntry(entry);
 			
-			byte[] stream = Files.readAllBytes(file.toPath());
-			sevenZOutput.write(stream);
+			if(!file.isDirectory()) {
+				byte[] stream = Files.readAllBytes(file.toPath());
+				sevenZOutput.write(stream);	
+			}
 			
 			sevenZOutput.closeArchiveEntry();
 			actual++;
