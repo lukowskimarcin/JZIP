@@ -14,8 +14,10 @@ import org.fxbase.utils.DialogsUtil;
 import org.fxbase.views.BaseControler;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,27 +101,31 @@ public class CompressControler extends BaseControler implements Initializable {
 			File selected = dirChooser.showDialog(appControler.getStage());
 			if (selected != null) {
 
-				Task<Void> task = new Task<Void>() {
+				
+				Service<Void> taskService = new Service<Void>() {
 					@Override
-					protected Void call() throws Exception {
-						HashSet<String> set = new HashSet<String>();
-						fetchFiles(selected, set);
+					protected Task<Void> createTask() {
+						return new Task<Void>() {
+							@Override
+							protected Void call() throws Exception {
+								HashSet<String> set = new HashSet<String>();
+								fetchFiles(selected, set);
 
-						for (String f : set) {
-							Platform.runLater(() -> {
-								files.add(f);
-							});
-						}
-
-						Platform.runLater(() -> {
-							appControler.getStage().getScene().setCursor(Cursor.DEFAULT);
-						});
-						return null;
+								for (String f : set) {
+									Platform.runLater(() -> {
+										files.add(f);
+									});
+								}
+								return null;
+							}
+						};
 					}
 				};
-
-				appControler.getStage().getScene().setCursor(Cursor.WAIT);
-				new Thread(task).start();
+				
+				appControler.getStage().getScene().cursorProperty().bind(
+						Bindings.when(taskService.runningProperty()).then(Cursor.WAIT).otherwise(Cursor.DEFAULT)
+				);
+				taskService.start();
 			}
 
 		} catch (Exception ex) {
@@ -171,27 +177,35 @@ public class CompressControler extends BaseControler implements Initializable {
 				});
 
 				archive.setText(file.getPath());
+				
+				Service<Void> taskService = new Service<Void>() {
 
-				Task<Void> task = new Task<Void>() {
 					@Override
-					protected Void call() throws Exception {
-						service.compress(file, fileList.getItems());
+					protected Task<Void> createTask() {
+						return new Task<Void>() {
+							@Override
+							protected Void call() throws Exception {
+								service.compress(file, fileList.getItems());
 
-						Platform.runLater(() -> {
-							bAddCatalog.setDisable(false);
-							bAddFiles.setDisable(false);
-							bClear.setDisable(false);
-							
-							appControler.getStage().getScene().setCursor(Cursor.DEFAULT);
-							Notifications.create().darkStyle().position(Pos.BOTTOM_RIGHT).title("Kompresja...")
-									.text("Ukończona").showInformation();
-						});
-						return null;
+								Platform.runLater(() -> {
+									bAddCatalog.setDisable(false);
+									bAddFiles.setDisable(false);
+									bClear.setDisable(false);
+									Notifications.create().darkStyle().position(Pos.BOTTOM_RIGHT).title("Kompresja...")
+											.text("Ukończona").showInformation();
+								});
+								return null;
+							}
+						};
 					}
+					
 				};
 				
-				appControler.getStage().getScene().setCursor(Cursor.WAIT);
-				new Thread(task).start();
+				appControler.getStage().getScene().cursorProperty().bind(
+						Bindings.when(taskService.runningProperty()).then(Cursor.WAIT).otherwise(Cursor.DEFAULT)
+				);
+				taskService.start();
+				 
 			}
 
 		} catch (Exception ex) {
