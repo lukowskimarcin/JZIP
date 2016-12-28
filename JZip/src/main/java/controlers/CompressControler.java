@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileSystemUtils;
 import org.controlsfx.control.Notifications;
 import org.fxbase.utils.DialogsUtil;
 import org.fxbase.views.BaseControler;
@@ -26,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -69,6 +69,9 @@ public class CompressControler extends BaseControler implements Initializable {
 
 	@FXML
 	private Button bAddCatalog;
+	
+	@FXML
+	private MenuItem mRemove;
 
 	@FXML
 	void onClear(ActionEvent event) {
@@ -211,6 +214,12 @@ public class CompressControler extends BaseControler implements Initializable {
 		} catch (Exception ex) {
 			DialogsUtil.create().showException(ex);
 		}
+	}
+	
+	@FXML
+	void onRemoveItem(ActionEvent event) {
+		int index = fileList.getSelectionModel().getSelectedIndex();
+		files.remove(index);
 	}
 
 }
