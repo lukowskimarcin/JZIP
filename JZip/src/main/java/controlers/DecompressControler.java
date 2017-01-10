@@ -22,6 +22,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import services.SevenZipService;
 import utils.DialogsUtil;
 
 @FXMLView("/fxml/Decompres.fxml")

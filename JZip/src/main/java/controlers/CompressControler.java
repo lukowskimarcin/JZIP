@@ -31,8 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import services.SevenZipService;
 import utils.DialogsUtil;
-import controlers.*;
 
 @FXMLView("/fxml/Compress.fxml")
 public class CompressControler extends AbstractView implements Initializable {

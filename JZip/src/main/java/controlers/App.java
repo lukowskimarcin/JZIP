@@ -16,7 +16,7 @@ import utils.DialogsUtil;
  
 
 @Lazy
-@ComponentScan
+@ComponentScan(basePackages= {"controlers", "services"})
 @SpringApplicationConfiguration
 public class App extends AbstractJavaFxApplication {
 	
