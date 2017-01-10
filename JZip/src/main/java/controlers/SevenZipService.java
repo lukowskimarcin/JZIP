@@ -1,24 +1,22 @@
-package services; 
+package controlers; 
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
+import org.springframework.stereotype.Component;
 
 import events.SevenZipEvent;
 import interfaces.IEventHandler;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextField;
 
+@Component
 public class SevenZipService {
 	
 	private IEventHandler<SevenZipEvent> handler;

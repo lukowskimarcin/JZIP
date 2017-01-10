@@ -2,12 +2,12 @@ package controlers;
 
 import java.awt.Desktop;
 import java.io.File;
-import javax.inject.Inject;
 
 import org.controlsfx.control.Notifications;
-import org.fxbase.utils.DialogsUtil;
-import org.fxbase.views.BaseControler;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import fxbase.AbstractView;
+import fxbase.FXMLView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,18 +22,19 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import services.SevenZipService;
+import utils.DialogsUtil;
 
-public class DecompressControler extends BaseControler {
+@FXMLView("/fxml/Decompres.fxml")
+public class DecompressControler extends AbstractView {
 
-	@Inject
+	@Autowired
 	private SevenZipService service;
+	
+	@Autowired
+	private App app;
 
 	private String lastPath = null;
 
-	public DecompressControler() {
-		super("src/main/resources/fxml/Decompres.fxml");
-	}
 
 	@FXML
 	private ListView<String> list;
@@ -76,7 +77,7 @@ public class DecompressControler extends BaseControler {
 		fileChooser.getExtensionFilters().add(filter);
 		fileChooser.setSelectedExtensionFilter(filter);
 
-		File file = fileChooser.showOpenDialog(appControler.getStage());
+		File file = fileChooser.showOpenDialog(app.getStage());
 
 		if (file != null) {
 			try {
@@ -84,7 +85,7 @@ public class DecompressControler extends BaseControler {
 
 				DirectoryChooser saveFileChooser = new DirectoryChooser();
 				saveFileChooser.setTitle("Rozpakuj w ...");
-				File out = saveFileChooser.showDialog(appControler.getStage());
+				File out = saveFileChooser.showDialog(app.getStage());
 
 				Task<Void> task = new Task<Void>() {
 					@Override

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.inject.Inject;
 
 import org.controlsfx.control.Notifications;
-import org.fxbase.utils.DialogsUtil;
-import org.fxbase.views.BaseControler;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import fxbase.AbstractView;
+import fxbase.FXMLView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -31,15 +31,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import services.SevenZipService;
+import utils.DialogsUtil;
+import controlers.*;
 
-public class CompressControler extends BaseControler implements Initializable {
-	@Inject
+@FXMLView("/fxml/Compress.fxml")
+public class CompressControler extends AbstractView implements Initializable {
+	
+	@Autowired
 	private SevenZipService service;
 
-	public CompressControler() {
-		super("src/main/resources/fxml/Compress.fxml");
-	}
+	@Autowired
+	private App app;
 
 	private ObservableList<String> files = FXCollections.observableArrayList();
 
@@ -84,7 +86,7 @@ public class CompressControler extends BaseControler implements Initializable {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Wskaż pliki...");
 
-			List<File> selected = fileChooser.showOpenMultipleDialog(appControler.getStage());
+			List<File> selected = fileChooser.showOpenMultipleDialog(app.getStage());
 			if (selected != null) {
 				for (File f : selected) {
 					files.add(f.getAbsolutePath());
@@ -101,7 +103,7 @@ public class CompressControler extends BaseControler implements Initializable {
 			DirectoryChooser dirChooser = new DirectoryChooser();
 			dirChooser.setTitle("Wskaż katalog...");
 
-			File selected = dirChooser.showDialog(appControler.getStage());
+			File selected = dirChooser.showDialog(app.getStage());
 			if (selected != null) {
 
 				
@@ -125,7 +127,7 @@ public class CompressControler extends BaseControler implements Initializable {
 					}
 				};
 				
-				appControler.getStage().getScene().cursorProperty().bind(
+				app.getScene().cursorProperty().bind(
 						Bindings.when(taskService.runningProperty()).then(Cursor.WAIT).otherwise(Cursor.DEFAULT)
 				);
 				taskService.start();
@@ -167,7 +169,7 @@ public class CompressControler extends BaseControler implements Initializable {
 			fileChooser.getExtensionFilters().add(filter);
 			fileChooser.setSelectedExtensionFilter(filter);
 
-			File file = fileChooser.showSaveDialog(appControler.getStage());
+			File file = fileChooser.showSaveDialog(app.getStage());
 			if (file != null) {
 
 				service.addListener(e -> {
@@ -204,7 +206,7 @@ public class CompressControler extends BaseControler implements Initializable {
 					
 				};
 				
-				appControler.getStage().getScene().cursorProperty().bind(
+				app.getScene().cursorProperty().bind(
 						Bindings.when(taskService.runningProperty()).then(Cursor.WAIT).otherwise(Cursor.DEFAULT)
 				);
 				taskService.start();

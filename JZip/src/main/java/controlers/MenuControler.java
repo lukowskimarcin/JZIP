@@ -6,14 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
-import org.fxbase.views.BaseControler;
-import org.fxbase.views.JFXView;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import fxbase.AbstractView;
+import fxbase.FXMLView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
@@ -25,13 +26,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.SevenZipService;
 
-public class MenuControler extends BaseControler {
+@FXMLView("/fxml/Menu.fxml")
+public class MenuControler extends AbstractView {
 
-	public MenuControler() {
-		super("src/main/resources/fxml/Menu.fxml");
-	}
+	@Autowired
+	private App app;
+	
+	@Autowired
+	private MainControler main;
+	
+	@Autowired
+	private AboutControler about;
 	
 	@FXML
 	private MenuItem mCompress;
@@ -56,34 +62,34 @@ public class MenuControler extends BaseControler {
 	void onAbout(ActionEvent event) throws FileNotFoundException {
 		Stage stage = new Stage();
 		stage.setTitle("O programie");
-		stage.initOwner(appControler.getStage());
+		stage.initOwner(app.getStage());
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.setResizable(false);
-		stage.getIcons().add(appControler.getStage().getIcons().get(0));
+		stage.getIcons().add(app.getStage().getIcons().get(0));
+     	 
+     	about.reload();
+		about.setDialogStage(stage);
 		
-		JFXView<AboutControler> about =  appControler.load(AboutControler.class);
-		about.getControler().setDialogStage(stage);
-		
-		AnchorPane anchorPane = (AnchorPane)about.getNode();
-		Scene scene = new Scene(anchorPane);
+		Scene scene = new Scene(about.getView());
 		
 		stage.setScene(scene);
 		stage.showAndWait();
+		
 	}
 
 	@FXML
 	void onCompress(ActionEvent event) {
-		JFXView<CompressControler> view = appControler.load(CompressControler.class);
-		appControler.setCenterNode(view);
+		CompressControler view = loadView(CompressControler.class);
+		main.setCenter(view);
 	}
 
 	
 	@FXML
 	void onDecompress(ActionEvent event) {
-		JFXView<DecompressControler> view = appControler.load(DecompressControler.class);
-		appControler.setCenterNode(view);
+		DecompressControler view = loadView(DecompressControler.class);
+		main.setCenter(view);
 		
-		view.getControler().decompress();
+		view.decompress();
 	}
 
 }

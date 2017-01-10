@@ -3,50 +3,43 @@ package controlers;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.enterprise.event.Observes;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Lazy;
 
-import org.fxbase.cdi.StartupScene;
-import org.fxbase.cdi.WeldJavaFXLauncher;
-import org.fxbase.utils.DialogsUtil;
-import org.fxbase.views.AppControler;
-import org.fxbase.views.BaseControler;
-import org.fxbase.views.JFXView;
-
-import javafx.application.Application;
+import fxbase.AbstractJavaFxApplication;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
+import utils.DialogsUtil;
 
-public class App extends AppControler {
+ 
+
+@Lazy
+@ComponentScan
+@SpringApplicationConfiguration
+public class App extends AbstractJavaFxApplication {
+	
+	protected static final Logger log = Logger.getLogger(App.class.getName());   
 	
 	public static void main(String[] args) {
-		 Application.launch(WeldJavaFXLauncher.class, args);
-	}
-	
-	public void lunch(@Observes @StartupScene Stage primaryStage) {
-		launchJavaFXApplication(primaryStage);
-	}
-	
-	@Override
-	public String getTitle() {
-		return "JZip";
+		launchApp(App.class, MainControler.class, args);
 	}
 	
 
 	@Override
-	public void init() {
+	protected void initialize() {
 		try {
 			InputStream img = new FileInputStream("src/main/resources/images/zip.png");
 			Image icon = new Image(img);
 			
-			stage.getIcons().add(icon);
+			getStage().getIcons().add(icon);
 			DialogsUtil.defaultIcon(icon);
-		 
-			JFXView<BaseControler> menu = load(MenuControler.class);
-			setTopNode(menu);
-			
+			 
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, ex.getMessage(), ex);
 		}
+		
 	}
+	 
 }

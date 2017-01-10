@@ -1,20 +1,20 @@
 package controlers;
 
-import org.fxbase.views.BaseControler;
 
+
+import org.springframework.context.annotation.Scope;
+
+import fxbase.AbstractView;
+import fxbase.FXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AboutControler extends BaseControler {
+@FXMLView("/fxml/About.fxml")
+public class AboutControler extends AbstractView {
 
-	public AboutControler() {
-		super("src/main/resources/fxml/About.fxml");
-	}
-	
 	private Stage dialogStage;
-	
 
     @FXML
     private Button bOk;
