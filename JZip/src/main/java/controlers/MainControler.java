@@ -17,6 +17,9 @@ public class MainControler extends AbstractView {
 	
 	@PostConstruct
 	private void init(){
+		
+		setTitle("JZip");
+		
 		BorderPane pane = (BorderPane)getView();
 		pane.setTop(menu.getView());
 	}

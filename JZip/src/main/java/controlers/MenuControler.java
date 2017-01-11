@@ -60,21 +60,14 @@ public class MenuControler extends AbstractView {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void onAbout(ActionEvent event) throws FileNotFoundException {
-		Stage stage = new Stage();
-		stage.setTitle("O programie");
-		stage.initOwner(app.getStage());
-		stage.initModality(Modality.WINDOW_MODAL);
-		stage.setResizable(false);
-		stage.getIcons().add(app.getStage().getIcons().get(0));
-     	 
-     	about.reload();
-		about.setDialogStage(stage);
+		AboutControler aboutView = loadView(AboutControler.class);
+		AboutControler aboutControler = (AboutControler)aboutView.getControler();
 		
-		Scene scene = new Scene(about.getView());
-		
-		stage.setScene(scene);
-		stage.showAndWait();
-		
+		aboutControler.setTitle("O programie");
+ 		aboutControler.initOwner(app.getStage()) 
+ 			.initModality(Modality.NONE)
+			.show();
+ 		
 	}
 
 	@FXML

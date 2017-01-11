@@ -2,6 +2,8 @@ package controlers;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +13,6 @@ import org.springframework.context.annotation.Lazy;
 
 import fxbase.AbstractJavaFxApplication;
 import javafx.scene.image.Image;
-import utils.DialogsUtil;
 
  
 
@@ -25,21 +26,20 @@ public class App extends AbstractJavaFxApplication {
 	public static void main(String[] args) {
 		launchApp(App.class, MainControler.class, args);
 	}
-	
 
 	@Override
-	protected void initialize() {
+	protected List<Image> loadIcons() {
+		List<Image> images = new ArrayList<>();
 		try {
 			InputStream img = new FileInputStream("src/main/resources/images/zip.png");
 			Image icon = new Image(img);
 			
-			getStage().getIcons().add(icon);
-			DialogsUtil.defaultIcon(icon);
-			 
+			images.add(icon);
+			
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, ex.getMessage(), ex);
 		}
-		
+		return images;
 	}
 	 
 }

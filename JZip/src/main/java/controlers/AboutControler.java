@@ -2,36 +2,27 @@ package controlers;
 
 
 
+
 import org.springframework.context.annotation.Scope;
 
-import fxbase.AbstractView;
+import fxbase.AbstractSeparateView;
 import fxbase.FXMLView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
+
+@Scope("prototype")
 @FXMLView("/fxml/About.fxml")
-public class AboutControler extends AbstractView {
-
-	private Stage dialogStage;
+public class AboutControler extends AbstractSeparateView {
 
     @FXML
     private Button bOk;
 
     @FXML
     void onAction(ActionEvent event) {
-    	 dialogStage.close();
+    	 close();
     }
-
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-
     
     
 }
