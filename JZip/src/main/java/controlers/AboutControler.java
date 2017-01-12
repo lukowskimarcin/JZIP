@@ -16,6 +16,11 @@ import javafx.scene.control.Button;
 @FXMLView("/fxml/About.fxml")
 public class AboutControler extends AbstractSeparateView {
 
+	public AboutControler() {
+		System.out.println("Create AboutControler");
+	}
+	
+	
     @FXML
     private Button bOk;
 

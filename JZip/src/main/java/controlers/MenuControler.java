@@ -36,9 +36,6 @@ public class MenuControler extends AbstractView {
 	@Autowired
 	private MainControler main;
 	
-	@Autowired
-	private AboutControler about;
-	
 	@FXML
 	private MenuItem mCompress;
 
@@ -51,6 +48,8 @@ public class MenuControler extends AbstractView {
 	@FXML
 	private MenuItem mAbout;
 
+	@Autowired
+	AboutControler aboutView;
 	
 	@FXML
 	void closeAction(ActionEvent event) {
@@ -60,13 +59,11 @@ public class MenuControler extends AbstractView {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void onAbout(ActionEvent event) throws FileNotFoundException {
-		AboutControler aboutView = loadView(AboutControler.class);
-		AboutControler aboutControler = (AboutControler)aboutView.getControler();
-		
-		aboutControler.setTitle("O programie");
- 		aboutControler.initOwner(app.getStage()) 
- 			.initModality(Modality.NONE)
-			.show();
+		// = loadView(AboutControler.class);
+		aboutView.setTitle("O programie");
+		aboutView.initOwner(app.getStage()) 
+ 			.initModality(Modality.WINDOW_MODAL)
+ 			.showAndWait();
  		
 	}
 
