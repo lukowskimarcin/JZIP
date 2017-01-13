@@ -63,6 +63,7 @@ public class MenuControler extends AbstractView {
 		aboutView.setTitle("O programie");
 		aboutView.initOwner(app.getStage()) 
  			.initModality(Modality.WINDOW_MODAL)
+ 			//.center()
  			.showAndWait();
  		
 	}
