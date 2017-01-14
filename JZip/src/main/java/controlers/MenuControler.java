@@ -1,11 +1,6 @@
 package controlers;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,18 +9,8 @@ import fxbase.FXMLView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 @FXMLView("/fxml/Menu.fxml")
 public class MenuControler extends AbstractView {
@@ -57,7 +42,6 @@ public class MenuControler extends AbstractView {
 	}
 
 	@FXML
-	@SuppressWarnings("unchecked")
 	void onAbout(ActionEvent event) throws FileNotFoundException {
 		// = loadView(AboutControler.class);
 		aboutView.setTitle("O programie");
