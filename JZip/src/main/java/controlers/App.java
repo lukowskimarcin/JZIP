@@ -33,12 +33,16 @@ public class App extends AbstractJavaFxApplication {
 	@Override
 	protected InputStream getTrayIcon()   {
 		InputStream icon = null;
-		try {
+			System.out.println(getClass().getResource("/images/tray.png"));
+			icon = getClass().getResourceAsStream("/images/zip.png");
 			
-			icon = new BufferedInputStream(new FileInputStream("src/main/resources/images/zip.png"));
-		} catch (FileNotFoundException ex) {
-			log.log(Level.SEVERE, "getTrayIcon", ex);
-		}
+			try {
+				icon = new FileInputStream("src/main/resources/images/zip.png");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		return icon;
 	}
 	
