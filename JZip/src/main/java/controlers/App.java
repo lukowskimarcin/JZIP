@@ -1,10 +1,8 @@
 package controlers;
 
-import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,22 +27,7 @@ public class App extends AbstractJavaFxApplication {
 	public static void main(String[] args) throws FileNotFoundException {
 		launchApp(App.class, MainControler.class, args);
 	}
-	
-	@Override
-	protected InputStream getTrayIcon()   {
-		InputStream icon = null;
-			System.out.println(getClass().getResource("/images/tray.png"));
-			icon = getClass().getResourceAsStream("/images/zip.png");
-			
-			try {
-				icon = new FileInputStream("src/main/resources/images/zip.png");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		return icon;
-	}
+	 
 	
 
 	@Override

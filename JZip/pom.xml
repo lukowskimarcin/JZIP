@@ -42,4 +42,17 @@
   	</dependency>
   </dependencies>
   
+  <build>
+	 <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+	</build>
+  
 </project>
