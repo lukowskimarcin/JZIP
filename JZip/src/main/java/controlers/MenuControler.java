@@ -43,7 +43,6 @@ public class MenuControler extends AbstractView {
 
 	@FXML
 	void onAbout(ActionEvent event) throws FileNotFoundException {
-		// = loadView(AboutControler.class);
 		aboutView.setTitle("O programie");
 		aboutView.initOwner(app.getStage()) 
  			.initModality(Modality.WINDOW_MODAL)

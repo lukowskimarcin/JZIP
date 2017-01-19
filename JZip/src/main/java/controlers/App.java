@@ -25,24 +25,18 @@ public class App extends AbstractJavaFxApplication {
 	protected static final Logger log = Logger.getLogger(App.class.getName());   
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		loadIcons();
 		launchApp(App.class, MainControler.class, args);
 	}
 	 
-	
-
-	@Override
-	protected List<Image> loadIcons() {
-		List<Image> images = new ArrayList<>();
+	private static void loadIcons() {
 		try {
 			InputStream img = new FileInputStream("src/main/resources/images/zip.png");
 			Image icon = new Image(img);
-			
-			images.add(icon);
-			
+			setDefaultIcon(icon);
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, ex.getMessage(), ex);
 		}
-		return images;
 	}
 	 
 }
