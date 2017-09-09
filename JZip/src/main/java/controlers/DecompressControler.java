@@ -25,7 +25,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import services.SevenZipService;
 import utils.DialogsUtil;
 
-@FXMLView("/fxml/Decompres.fxml")
+@FXMLView(fxml="/fxml/Decompres.fxml")
 public class DecompressControler extends AbstractView {
 
 	@Autowired

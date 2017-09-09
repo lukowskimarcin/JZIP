@@ -34,7 +34,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import services.SevenZipService;
 import utils.DialogsUtil;
 
-@FXMLView("/fxml/Compress.fxml")
+@FXMLView(fxml="/fxml/Compress.fxml")
 public class CompressControler extends AbstractView implements Initializable {
 	
 	@Autowired

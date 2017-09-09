@@ -26,6 +26,8 @@ public class App extends AbstractJavaFxApplication {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		loadIcons();
+		
+		setStartInTray(true);
 		launchApp(App.class, MainControler.class, args);
 	}
 	 
@@ -37,6 +39,17 @@ public class App extends AbstractJavaFxApplication {
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, ex.getMessage(), ex);
 		}
+	}
+	
+	@Override
+	protected InputStream getTrayIcon() {
+		InputStream is = null;
+		try {
+			is = new FileInputStream("src/main/resources/images/zip.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return is;
 	}
 	 
 }

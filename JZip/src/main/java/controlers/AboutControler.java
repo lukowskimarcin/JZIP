@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 
 
 @Scope("prototype")
-@FXMLView("/fxml/About.fxml")
+@FXMLView(fxml="/fxml/About.fxml")
 public class AboutControler extends AbstractSeparateView {
 
 	public AboutControler() {

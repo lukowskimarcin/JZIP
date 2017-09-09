@@ -8,7 +8,7 @@ import fxbase.AbstractView;
 import fxbase.FXMLView;
 import javafx.scene.layout.BorderPane;
 
-@FXMLView("/fxml/Main.fxml")
+@FXMLView(fxml="/fxml/Main.fxml")
 public class MainControler extends AbstractView {
 	
 	
