@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Lazy;
 
@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
 
 @Lazy
 @ComponentScan(basePackages= {"controlers", "services"})
-@SpringApplicationConfiguration
+@SpringBootApplication
 public class App extends AbstractJavaFxApplication {
 	
 	protected static final Logger log = Logger.getLogger(App.class.getName());   
